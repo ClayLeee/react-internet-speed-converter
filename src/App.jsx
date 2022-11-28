@@ -1,32 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
 import './App.css'
+import { useState } from 'react'
 
-function App() {
-  const [count, setCount] = useState(0)
+import UnitControl from './components/UnitControl'
+import UnitConverter from './components/UnitConverter'
+import CardFooter from './components/CardFooter'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { far } from '@fortawesome/free-regular-svg-icons'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { library } from '@fortawesome/fontawesome-svg-core'
+
+library.add(fab, far, fas)
+
+const App = () => {
+  const [inputValue, setInputValue] = useState(0)
+
+  const handleInputChange = (e) => {
+    const { value } = e.target
+    setInputValue(value)
+  }
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="container">
+      <div className="card-header">Network Speed Converter</div>
+      <div className="card-body">
+        <UnitControl />
+        <UnitConverter
+          inputValue={inputValue}
+          handleInputChange={handleInputChange}
+        />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <CardFooter inputValue={inputValue} />
     </div>
   )
 }
